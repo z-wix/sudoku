@@ -86,6 +86,20 @@ I was able to do the same thing as before but by the rows, this just took some m
 
 Other changes I made with this round, was to implement a module, that is storing all of my custom functions such as `find_missing()` and (most recently) `generate_sudoku()`. This new function will allow me to just run and generate a new sudoku and specify the difficulty of the sudoku. Mostly just using difficulty = 1 for now as that is the most simplist with only 1 missing value per row/column/quadrant (so 9 total missing values). This is going to be used for testing in these initial attempts.
 
+*New Simple Sudoku Output:*
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   |   1 |   2 |   3 |   4 |   5 |   6 |   7 | [8] |   9 |
+| b   |   4 |   5 | [6] |   7 |   8 |   9 |   1 |   2 |   3 |
+| c   |   7 |   8 |   9 |   1 |   2 | [3] |   4 |   5 |   6 |
+| d   | [2] |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |
+| e   |   5 |   6 |   7 |   8 | [9] |   1 |   2 |   3 |   4 |
+| f   |   8 |   9 |   1 |   2 |   3 |   4 | [5] |   6 |   7 |
+| g   |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 | [2] |
+| h   |   6 |   7 |   8 | [9] |   1 |   2 |   3 |   4 |   5 |
+| i   |   9 | [1] |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
+
 **What still needs to be done:**
 
 - Replicating the same result in a quandrant-wise fashion. This might be more difficult, becuase I will need to specify the quadrant the missing value is in first and then turn the quadrant into an array to check for which values are missing.
