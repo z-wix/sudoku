@@ -8,35 +8,112 @@ sudokus ranging in difficulty.
 import pandas as pd
 import plotly.express as px
 
-# Test using a Matrix
-sudoku_matrix = [
-    [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [4, 5, 6, 7, 8, 9, 1, 2, 3],
-    [7, 8, 9, 1, 2, 3, 4, 5, 6],
-
-    [0, 3, 4, 5, 6, 7, 8, 9, 1],
-    [5, 6, 7, 8, 9, 1, 2, 3, 4],
-    [8, 9, 1, 2, 3, 4, 0, 6, 7],
-
-    [3, 4, 5, 6, 7, 8, 9, 1, 2],
-    [6, 7, 8, 0, 1, 2, 3, 4, 5],
-    [9, 1, 2, 3, 4, 5, 6, 7, 8]
-    ]
-
-
-print(sudoku_matrix)
-
-# Test using a dataset
-sudoku_df = pd.DataFrame(
-    sudoku_matrix,
-    columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
-    index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
-)
-
-sudoku_df.to_csv("../input/simple_sudoku.csv")
-
-
 # Functions
+
+def generate_sudoku(difficulty = 1):
+    if difficulty == 1:
+        youngling_sudoku_matrix = [
+            [1, 2, 3, 4, 5, 6, 7, 0, 9],
+            [4, 5, 0, 7, 8, 9, 1, 2, 3],
+            [7, 8, 9, 1, 2, 0, 4, 5, 6],
+
+            [0, 3, 4, 5, 6, 7, 8, 9, 1],
+            [5, 6, 7, 8, 0, 1, 2, 3, 4],
+            [8, 9, 1, 2, 3, 4, 0, 6, 7],
+
+            [3, 4, 5, 6, 7, 8, 9, 1, 0],
+            [6, 7, 8, 0, 1, 2, 3, 4, 5],
+            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            ]
+
+        # Test using a dataset
+        youngling_sudoku_df = pd.DataFrame(
+            youngling_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        youngling_sudoku_df.to_csv("../input/simple_sudoku.csv")
+
+        return youngling_sudoku_df
+
+    elif difficulty == 2:
+        padawan_sudoku_matrix = [
+            [1, 2, 3, 4, 0, 6, 7, 0, 9],
+            [4, 5, 0, 7, 8, 9, 1, 2, 3],
+            [7, 8, 9, 1, 2, 0, 4, 5, 6],
+
+            [0, 3, 4, 5, 6, 7, 8, 9, 1],
+            [5, 6, 7, 8, 0, 1, 2, 0, 4],
+            [8, 0, 1, 2, 3, 4, 0, 6, 7],
+
+            [3, 4, 5, 6, 7, 8, 9, 1, 0],
+            [6, 7, 8, 0, 1, 2, 3, 4, 5],
+            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            ]
+
+        # Test using a dataset
+        padawan_sudoku_df = pd.DataFrame(
+            padawan_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        padawan_sudoku_df.to_csv("../input/medium_sudoku.csv")
+
+        return padawan_sudoku_df
+
+    elif difficulty == 3:
+        knight_sudoku_matrix = [
+            [1, 2, 3, 4, 0, 6, 7, 0, 9],
+            [4, 5, 0, 7, 8, 9, 1, 2, 3],
+            [7, 8, 9, 1, 2, 0, 4, 5, 6],
+
+            [0, 3, 4, 5, 6, 7, 8, 9, 1],
+            [5, 6, 7, 8, 0, 1, 2, 0, 4],
+            [8, 0, 1, 2, 3, 4, 0, 6, 7],
+
+            [3, 4, 5, 6, 7, 8, 9, 1, 0],
+            [6, 7, 8, 0, 1, 2, 3, 4, 5],
+            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            ]
+
+        # Test using a dataset
+        knight_sudoku_df = pd.DataFrame(
+            knight_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        knight_sudoku_df.to_csv("../input/hard_sudoku.csv")
+
+        return knight_sudoku_df
+    else:
+        master_sudoku_matrix = [
+            [1, 2, 3, 4, 0, 0, 7, 0, 9],
+            [4, 0, 0, 7, 0, 0, 0, 2, 3],
+            [7, 8, 0, 1, 2, 0, 4, 5, 6],
+
+            [0, 3, 0, 5, 6, 0, 8, 9, 1],
+            [5, 6, 7, 8, 0, 1, 2, 0, 4],
+            [8, 0, 1, 0, 3, 4, 0, 6, 7],
+
+            [3, 4, 5, 6, 7, 8, 0, 1, 0],
+            [0, 0, 8, 0, 1, 2, 3, 4, 5],
+            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            ]
+
+        # Test using a dataset
+        master_sudoku_df = pd.DataFrame(
+            master_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        master_sudoku_df.to_csv("../input/master_sudoku.csv")
+
+        return master_sudoku_df
+
 
 def find_missing(lst):
     return [x for x in range(1,10) if x not in lst]
