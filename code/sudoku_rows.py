@@ -21,11 +21,11 @@ from sudoku_module import find_missing, generate_sudoku
 # Load in Sudoku Difficulty = 1
 sudoku_df = generate_sudoku()
 
-# Test to split into a 3x3 dataset
+# get rows and columns from df
 cols = list(sudoku_df.columns)
 rows = list(sudoku_df.index)
 
-#Empty Dataframe to fill in data with
+# Empty Dataframe to fill in data with
 output_matrix = []
 finished_sudoku = pd.DataFrame(
     output_matrix,
@@ -33,7 +33,7 @@ finished_sudoku = pd.DataFrame(
     index = rows
 )
 
-# Loop testing column orientation
+# Loop solving row orientation
 print("Solving by Rows")
 for i in rows:
     # print(f'Row {i}')
@@ -52,6 +52,5 @@ for i in rows:
 
 print(finished_sudoku)
 
+# Save to CSV
 finished_sudoku.to_csv("../output/single_row_result.csv")
-
-# sudoku_df[['A', 'B', 'C']].iloc[[0, 1, 2]]
