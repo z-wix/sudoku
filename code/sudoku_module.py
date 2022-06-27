@@ -151,3 +151,8 @@ def find_sector_rows(current_row):
         return rows2
     else:
         return rows3
+
+def find_quad(df, current_column, current_row):
+    # use past functions to just return the quad df
+    quad = df[find_sector_columns(current_column)].loc[find_sector_rows(current_row)]
+    return quad
