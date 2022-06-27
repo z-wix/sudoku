@@ -9,7 +9,6 @@ import pandas as pd
 import plotly.express as px
 
 # Functions
-
 def generate_sudoku(difficulty = 1):
     if difficulty == 1:
         youngling_sudoku_matrix = [
@@ -151,3 +150,73 @@ def find_sector_rows(current_row):
         return rows2
     else:
         return rows3
+
+def solve_columnwise(df):
+    # Get Rows and Columns from df
+    cols = list(df.columns)
+    rows = list(df.index)
+
+    # Empty Dataframe to fill in data with
+    output_matrix = []
+    output_df = pd.DataFrame(
+        output_matrix,
+        columns = cols,
+        index = rows
+    )
+
+    # Loop to solve by column
+    print("Solving by Column")
+    for i in cols:
+        #print(f'Colummn {i}')
+        column = df[i]
+        for j in rows:
+            #print(f'index {j}')
+            value = column.loc[j]
+            #print(f'the value is {value}')
+            if value == 0:
+                x_value = find_missing(column.values)
+                #print(f'the missing values are {x_value}')
+                if len(x_value) == 1:
+                    output_df.loc[j,i] = x_value
+                else:
+                    print(f"There are multiple values missing {x_value}")
+                    output_df.loc[j,i] = x_value
+            else:
+                output_df.loc[j,i] = value
+    return output_df
+
+
+
+def solve_rowwise(df):
+    # Get Rows and Columns from df
+    cols = list(df.columns)
+    rows = list(df.index)
+
+    # Empty Dataframe to fill in data with
+    output_matrix = []
+    output_df = pd.DataFrame(
+        output_matrix,
+        columns = cols,
+        index = rows
+    )
+
+    # Loop solving row orientation
+    print("Solving by Row")
+    for i in rows:
+        # print(f'Row {i}')
+        row = df.loc[i]
+        for j in cols:
+            # print(f'Column {j}')
+            value = row.loc[j]
+            # print(f'the value is {value}')
+            if value == 0:
+                x_value = find_missing(row.values)
+                # print(f'the missing values are {x_value}')
+                if len(x_value) == 1:
+                    output_df.loc[i, j] = x_value
+                else:
+                    print(f"There are multiple values missing {x_value}")
+                    output_df.loc[i, j] = x_value
+            else:
+                output_df.loc[i, j] = value
+    return output_df
