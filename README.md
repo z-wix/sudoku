@@ -73,7 +73,7 @@ Resulting Sudoku:
 | h   |   6 |   7 |   8 | [9] |   1 |   2 |   3 |   4 |   5 |
 | i   |   9 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
 
-**What still needs to be done:**
+**Next Steps:**
 
 - Replicating the same result but for row-wise and quadrant-wise orientation. The latter of which will be much more difficult to execute.
 - I need to be able to handle if there are multiple missing values in a column (which hopefully adding in checking row-wise and quadrant-wise will help with that).
@@ -100,7 +100,7 @@ Other changes I made with this round, was to implement a module, that is storing
 | h   |   6 |   7 |   8 | [9] |   1 |   2 |   3 |   4 |   5 |
 | i   |   9 | [1] |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
 
-**What still needs to be done:**
+**Next Steps:**
 
 - Replicating the same result in a quandrant-wise fashion. This might be more difficult, becuase I will need to specify the quadrant the missing value is in first and then turn the quadrant into an array to check for which values are missing.
 - I need to be able to handle if there are multiple missing values in a column (which hopefully adding in checking row-wise and quadrant-wise will help with that).
@@ -109,4 +109,34 @@ Other changes I made with this round, was to implement a module, that is storing
 ## Third Step:
 ### **Single Missing Values in a Quadrant**
 
-Now with `sudoku_quads.py` I can do the same things as the rows and columns, but by quadrant. This was only possible when using two functions
+Now with `sudoku_quads.py` I can do the same things as the rows and columns, but by quadrant. This was only possible when using two functions: `find_sector_rows()` and `find_sector_columns()`. These function basically return the quadrant that the value is located, that way I was able to get the values from the quadrant and then find the missing values in that array. 
+
+**Next Steps:**
+
+- I need to be able to handle if there are multiple missing values in a column (which hopefully adding in checking row-wise and quadrant-wise will help with that).
+- On top of handling multiple missing values, I need to be able to store possible values that can be overridden if one of the values is fill in later in a corresponding row, column, or quadrant. I think the only way to do this will be just restarting the loop with the new filled in values overwriting the old copy so that the loop is now looping at a new partially finished sudoku as opposed to restarting with the unfinished one again.
+
+## Fourth Step:
+### **Multiple Missing Values in a Column**
+
+So in order to attack this problem, I first needed to show what it looks like and how it should be a simple fix once I work on the ability to check values on all three approaches: column-wise, row-wise, and quadrant-wise.
+
+When I use an input sudoku that contains multiple missing values in a column I get this result:
+
+|     | A   | B      | C   | D   | E      | F   | G   | H      | I   |
+| --- | --- | ------ | --- | --- | ------ | --- | --- | ------ | --- |
+| a   |   1 |      2 |   3 |   4 | [5, 9] |   6 |   7 | [3, 8] |   9 |
+| b   |   4 |      5 | [6] |   7 |      8 |   9 |   1 |      2 |   3 |
+| c   |   7 |      8 |   9 |   1 |      2 | [3] |   4 |      5 |   6 |
+| d   | [2] |      3 |   4 |   5 |      6 |   7 |   8 |      9 |   1 |
+| e   |   5 |      6 |   7 |   8 | [5, 9] |   1 |   2 | [3, 8] |   4 |
+| f   |   8 | [1, 9] |   1 |   2 |      3 |   4 | [5] |      6 |   7 |
+| g   |   3 |      4 |   5 |   6 |      7 |   8 |   9 |      1 | [2] |
+| h   |   6 |      7 |   8 | [9] |      1 |   2 |   3 |      4 |   5 |
+| i   |   9 | [1, 9] |   2 |   3 |      4 |   5 |   6 |      7 |   8 |
+
+So the ones that have multiple possibilities show the values that are possible, but this is only checking by column. If you look at the value *[B, f]* it is [1,9] But there is already a 1 in the same row. This phenomenom I am going to call **blind spots**: not seeing all the available information. This is happening because it isn't checking for all the information that is available, such as what is in the rows *yet*. So anyone doing sudoku would see that and realize that then the only possible value for *[B, f]* is 9. 
+
+**Next Steps:**
+
+- replicate this for rows, and then try to combine the two into one loop that relooks at the data by row, and fills in any blind spots. 
