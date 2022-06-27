@@ -177,10 +177,10 @@ def solve_columnwise(df):
                 x_value = find_missing(column.values)
                 #print(f'the missing values are {x_value}')
                 if len(x_value) == 1:
-                    output_df.loc[j,i] = x_value
+                    output_df.loc[j,i] = x_value[0]
                 else:
-                    print(f"There are multiple values missing {x_value}")
-                    output_df.loc[j,i] = x_value
+                    print(f"There are multiple values missing {x_value} in Row {j} Col {i}")
+                    output_df.loc[j,i] = 0
             else:
                 output_df.loc[j,i] = value
     return output_df
@@ -213,10 +213,65 @@ def solve_rowwise(df):
                 x_value = find_missing(row.values)
                 # print(f'the missing values are {x_value}')
                 if len(x_value) == 1:
-                    output_df.loc[i, j] = x_value
+                    output_df.loc[i, j] = x_value[0]
                 else:
-                    print(f"There are multiple values missing {x_value}")
-                    output_df.loc[i, j] = x_value
+                    print(f"There are multiple values missing {x_value} in Row {i} Col {j}")
+                    output_df.loc[i, j] = 0
             else:
                 output_df.loc[i, j] = value
     return output_df
+
+
+def solve_quadwise(df):
+    # Get Rows and Columns from df
+    cols = list(df.columns)
+    rows = list(df.index)
+
+    # Empty Dataframe to fill in data with
+    output_matrix = []
+    output_df = pd.DataFrame(
+        output_matrix,
+        columns = cols,
+        index = rows
+    )
+
+    # Loop solving quad orientation
+    print("Solving by Quadrant")
+    for i in rows:
+        # print(f'Row {i}')
+        row = df.loc[i]
+        for j in cols:
+            # print(f'Column {j}')
+            value = row.loc[j]
+            # print(f'the value is {value}')
+            if value == 0:
+                quad = df[find_sector_columns(j)].loc[find_sector_rows(i)]
+                x_value = find_missing(quad.values)
+                # print(f'the missing values are {x_value}')
+                if len(x_value) == 1:
+                    output_df.loc[i, j] = x_value[0]
+                else:
+                    print(f"There are multiple values missing {x_value} in Row {i} Col {j}")
+                    output_df.loc[i, j] = 0
+            else:
+                output_df.loc[i, j] = value
+    return output_df
+
+
+    # print("Solving by Quadrant")
+    # for i in rows:
+    #     #print(f'Row {i}')
+    #     row = sudoku_df.loc[i]
+    #     for j in cols:
+    #         #print(f'Column {j}')
+    #         value = row.loc[j]
+    #         #print(f'the value is {value}')
+    #         if value == 0:
+    #             quad = sudoku_df[find_sector_columns(j)].loc[find_sector_rows(i)]
+    #             x_value = find_missing(row.values)
+    #             #print(f'the missing value(s) are {x_value}')
+    #             if len(x_value) == 1:
+    #                 finished_sudoku.loc[i, j] = x_value
+    #         else:
+    #             finished_sudoku.loc[i, j] = value
+    # return output_df

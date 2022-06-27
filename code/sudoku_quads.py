@@ -44,7 +44,7 @@ for i in rows:
         #print(f'the value is {value}')
         if value == 0:
             quad = sudoku_df[find_sector_columns(j)].loc[find_sector_rows(i)]
-            x_value = find_missing(row.values)
+            x_value = find_missing(quad.values)
             #print(f'the missing value(s) are {x_value}')
             if len(x_value) == 1:
                 finished_sudoku.loc[i, j] = x_value

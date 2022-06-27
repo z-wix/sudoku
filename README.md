@@ -139,4 +139,82 @@ So the ones that have multiple possibilities show the values that are possible, 
 
 **Next Steps:**
 
-- replicate this for rows, and then try to combine the two into one loop that relooks at the data by row, and fills in any blind spots. 
+- Replicate this for rows and quadrants, and then try to combine two of them into one loop that relooks at the data by row, and fills in any blind spots. Maybe one way to do this would be to loop thru column, if len() != 1 then it doesn't fill it with the mutiple values, until it checks by row and quadrant, then after that if there are still some 0s it will fill in the multiple values. 
+
+
+## Fifth Step:
+### **Muliple Missing Values**
+
+Somehow this actually worked. So let me explain. First I decided to move all my columnwise, rowwise and quadrantwise solving into their own little functions that I can just call from the `sudoku_module.py` so keep my code super clean. So my latest script `sudoku.py` shows use of the new functions: `solve_columnwise()`, `solve_rowwise()`, and `solve_quadwise()`. 
+
+I changed up a litte bit the output of these functions, before if there were multiple missing values, it would show what they were in the ouput_df (i.e. [1, 9]). Now it prints out a statement showing that there were missing values and their coordinates while leaving that value as 0 so it can be used by the next function.
+
+It is not automated yet, but the gist of what I am doing is running the raw unfinished sudoku from `generate_sudoku()` through each of the solving functions. Here is how the process went:
+
+**column_sudoku = solve_columnwise(sudoku_df)**
+
+Solving by Column
+There are multiple values missing [1, 9] in Row f Col B
+There are multiple values missing [1, 9] in Row i Col B
+There are multiple values missing [5, 9] in Row a Col E
+There are multiple values missing [5, 9] in Row e Col E
+There are multiple values missing [3, 8] in Row a Col H
+There are multiple values missing [3, 8] in Row e Col H
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   |   1 |   2 |   3 |   4 |   0 |   6 |   7 |   0 |   9 |
+| b   |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |   3 |
+| c   |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |   6 |
+| d   |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |
+| e   |   5 |   6 |   7 |   8 |   0 |   1 |   2 |   0 |   4 |
+| f   |   8 |   0 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |
+| g   |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |
+| h   |   6 |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |
+| i   |   9 |   0 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
+
+Then used this output, `column_sudoku`, in the row function.
+
+**row_sudoku = solve_rowwise(column_sudoku)**
+
+Solving by Row
+There are multiple values missing [5, 8] in Row a Col E
+There are multiple values missing [5, 8] in Row a Col H
+There are multiple values missing [3, 9] in Row e Col E
+There are multiple values missing [3, 9] in Row e Col H
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   |   1 |   2 |   3 |   4 |   0 |   6 |   7 |   0 |   9 |
+| b   |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |   3 |
+| c   |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |   6 |
+| d   |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |
+| e   |   5 |   6 |   7 |   8 |   0 |   1 |   2 |   0 |   4 |
+| f   |   8 |   9 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |
+| g   |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |
+| h   |   6 |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |
+| i   |   9 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
+
+Effectively filling in two previous empty values, and now onto using this output, `row_sudoku`, in the quadrant function.
+
+**quad_sudoku = solve_quadwise(row_sudoku)**
+
+Solving by Quadrant
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |
+| b   |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |   3 |
+| c   |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |   6 |
+| d   |   2 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |
+| e   |   5 |   6 |   7 |   8 |   9 |   1 |   2 |   3 |   4 |
+| f   |   8 |   9 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |
+| g   |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |   2 |
+| h   |   6 |   7 |   8 |   9 |   1 |   2 |   3 |   4 |   5 |
+| i   |   9 |   1 |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
+
+Now it is solved! However this is still a very simple sudoku and I think we got lucky that the functions were able to fill in the gaps for each other so nicely.
+
+**Next Steps:**
+
+- Do further testing to see when this would break, is it when there are 3 missing values in a row/column/quad or does the order of which function it runs first matter?
