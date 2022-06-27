@@ -27,4 +27,6 @@ quad_sudoku = solve_quadwise(row_sudoku)
 
 print(quad_sudoku)
 
+# Save to CSV
+quad_sudoku.to_csv("../output/rowcolquad_simple_result.csv")
 
