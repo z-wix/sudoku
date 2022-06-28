@@ -145,14 +145,23 @@ So the ones that have multiple possibilities show the values that are possible, 
 ## Fifth Step:
 ### **Muliple Missing Values**
 
-Somehow this actually worked. So let me explain. First I decided to move all my columnwise, rowwise and quadrantwise solving into their own little functions that I can just call from the `sudoku_module.py` so keep my code super clean. So my latest script `sudoku.py` shows use of the new functions: `solve_columnwise()`, `solve_rowwise()`, and `solve_quadwise()`. 
+Somehow this actually worked. So let me explain. First I decided to move all my columnwise, rowwise and quadrantwise solving into their own little functions that I can just call from the `sudoku_module.py` so keep my code super clean. So my latest script `sudoku_combined.py` shows use of the new functions: `solve_columnwise()`, `solve_rowwise()`, and `solve_quadwise()`. 
 
 I changed up a litte bit the output of these functions, before if there were multiple missing values, it would show what they were in the ouput_df (i.e. [1, 9]). Now it prints out a statement showing that there were missing values and their coordinates while leaving that value as 0 so it can be used by the next function.
 
-It is not automated yet, but the gist of what I am doing is running the raw unfinished sudoku from `generate_sudoku()` through each of the solving functions. Here is how the process went:
+It is not automated yet, but the gist of what I am doing is running the raw unfinished sudoku from `generate_sudoku()` through each of the solving functions.
+
+The nex thing I did was to combine the three functions I used before into one function that I could use with conditionals to loop thru the funcitons until it was solved. 
+
+I created the `solve_sudoku()` function that also utilizes the `count_zeros()` function. I needed to be able to have a condition for the data to loop thru the functions until it was solved. So I count the 0's present in the dataframe and used it for the `while count0 > 0:` it will loop thru the funcitons. 
+
+This new script also includes `count_zeros()` function in action, printing out how many missing values were left and renamed it to `sudoku_combined.py` (combined meaning the all three methods combined)
+
+Here is how the process went:
 
 **column_sudoku = solve_columnwise(sudoku_df)**
 
+```
 Solving by Column
 - There are multiple values missing [1, 9] in Row f Col B
 - There are multiple values missing [1, 9] in Row i Col B
@@ -160,6 +169,9 @@ Solving by Column
 - There are multiple values missing [5, 9] in Row e Col E
 - There are multiple values missing [3, 8] in Row a Col H
 - There are multiple values missing [3, 8] in Row e Col H
+
+There are 6 missing values left
+```
 
 |     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -177,11 +189,15 @@ Then used this output, `column_sudoku`, in the row function.
 
 **row_sudoku = solve_rowwise(column_sudoku)**
 
+```
 Solving by Row
 - There are multiple values missing [5, 8] in Row a Col E
 - There are multiple values missing [5, 8] in Row a Col H
 - There are multiple values missing [3, 9] in Row e Col E
 - There are multiple values missing [3, 9] in Row e Col H
+
+There are 4 missing values left
+```
 
 |     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -199,7 +215,11 @@ Effectively filling in two previous empty values, and now onto using this output
 
 **quad_sudoku = solve_quadwise(row_sudoku)**
 
+```
 Solving by Quadrant
+
+There are 0 missing values left
+```
 
 |     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -217,4 +237,9 @@ Now it is solved! However this is still a very simple sudoku and I think we got 
 
 **Next Steps:**
 
+- Combine these into one function `solve_sudoku()`
 - Do further testing to see when this would break, is it when there are 3 missing values in a row/column/quad or does the order of which function it runs first matter?
+
+## Sixth Step:
+### **The All in One Function**
+
