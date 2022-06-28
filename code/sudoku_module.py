@@ -9,7 +9,16 @@ import pandas as pd
 import plotly.express as px
 
 # Functions
+
 def generate_sudoku(difficulty = 1):
+    '''
+    Generates an unfinished Sudoku
+    Three difficulty levels:
+     - 1 : single value missing per col/row/quad
+     - 2 : double values missing per col/row/quad
+
+     Work in Progress
+    '''
     if difficulty == 1:
         youngling_sudoku_matrix = [
             [1, 2, 3, 4, 5, 6, 7, 0, 9],
@@ -113,16 +122,24 @@ def generate_sudoku(difficulty = 1):
 
         return master_sudoku_df
 
-
 def find_missing(lst):
+    '''
+    Finds missing values between 1-9 for a given list of values
+    '''
     return [x for x in range(1,10) if x not in lst]
 
 def add_char(char, incr = 1):
+    '''
+    Increments Alphabetical Letters
+    '''
     int = ord(char[0])
     next_char = chr(int + incr)
     return next_char
 
 def find_sector_columns(current_column):
+    '''
+    Finds Quadrant Columns for given column.
+    '''
     # possible column sectors
     columns1 = ['A', 'B', 'C']
     columns2 = ['D', 'E', 'F']
@@ -136,8 +153,10 @@ def find_sector_columns(current_column):
     else:
         return columns3
 
-
 def find_sector_rows(current_row):
+    '''
+    Find Quadrant Rows for given row
+    '''
     # possible row sectors
     rows1 = ['a', 'b', 'c']
     rows2 = ['d', 'e', 'f']
@@ -152,6 +171,9 @@ def find_sector_rows(current_row):
         return rows3
 
 def solve_columnwise(df):
+    '''
+    Solves Sudoku by Column orientation
+    '''
     # Get Rows and Columns from df
     cols = list(df.columns)
     rows = list(df.index)
@@ -185,9 +207,10 @@ def solve_columnwise(df):
                 output_df.loc[j,i] = value
     return output_df
 
-
-
 def solve_rowwise(df):
+    '''
+    Solves Sudoku by Row orientation
+    '''
     # Get Rows and Columns from df
     cols = list(df.columns)
     rows = list(df.index)
@@ -221,8 +244,10 @@ def solve_rowwise(df):
                 output_df.loc[i, j] = value
     return output_df
 
-
 def solve_quadwise(df):
+    '''
+    Solves Sudoku by Quadrant orientation
+    '''
     # Get Rows and Columns from df
     cols = list(df.columns)
     rows = list(df.index)
@@ -257,21 +282,28 @@ def solve_quadwise(df):
                 output_df.loc[i, j] = value
     return output_df
 
+def count_zeros(df):
+    '''
+    Counts Zeros present in Dataframe
+    '''
+    count0 = 0
+    for i in df.columns:
+        n = (df[i] == 0).sum()
+        count0 += n
+    return count0
 
-    # print("Solving by Quadrant")
-    # for i in rows:
-    #     #print(f'Row {i}')
-    #     row = sudoku_df.loc[i]
-    #     for j in cols:
-    #         #print(f'Column {j}')
-    #         value = row.loc[j]
-    #         #print(f'the value is {value}')
-    #         if value == 0:
-    #             quad = sudoku_df[find_sector_columns(j)].loc[find_sector_rows(i)]
-    #             x_value = find_missing(row.values)
-    #             #print(f'the missing value(s) are {x_value}')
-    #             if len(x_value) == 1:
-    #                 finished_sudoku.loc[i, j] = x_value
-    #         else:
-    #             finished_sudoku.loc[i, j] = value
-    # return output_df
+
+def solve_sudoku(df):
+    '''
+    Solves the Sudoku using all three methods.
+    First counts if there are any 0's (missing values) in the sudoku.
+    Then does a while loop thru the three functions until there are no
+    more 0's and prints out the finished sudoku.
+    '''
+    count0 = count_zeros(df)
+    while count0 > 0:
+        df = solve_columnwise(df)
+        df = solve_rowwise(df)
+        df = solve_quadwise(df)
+        count0 = count_zeros(df)
+    print(df)
