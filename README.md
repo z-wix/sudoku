@@ -154,12 +154,12 @@ It is not automated yet, but the gist of what I am doing is running the raw unfi
 **column_sudoku = solve_columnwise(sudoku_df)**
 
 Solving by Column
-There are multiple values missing [1, 9] in Row f Col B
-There are multiple values missing [1, 9] in Row i Col B
-There are multiple values missing [5, 9] in Row a Col E
-There are multiple values missing [5, 9] in Row e Col E
-There are multiple values missing [3, 8] in Row a Col H
-There are multiple values missing [3, 8] in Row e Col H
+- There are multiple values missing [1, 9] in Row f Col B
+- There are multiple values missing [1, 9] in Row i Col B
+- There are multiple values missing [5, 9] in Row a Col E
+- There are multiple values missing [5, 9] in Row e Col E
+- There are multiple values missing [3, 8] in Row a Col H
+- There are multiple values missing [3, 8] in Row e Col H
 
 |     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -178,10 +178,10 @@ Then used this output, `column_sudoku`, in the row function.
 **row_sudoku = solve_rowwise(column_sudoku)**
 
 Solving by Row
-There are multiple values missing [5, 8] in Row a Col E
-There are multiple values missing [5, 8] in Row a Col H
-There are multiple values missing [3, 9] in Row e Col E
-There are multiple values missing [3, 9] in Row e Col H
+- There are multiple values missing [5, 8] in Row a Col E
+- There are multiple values missing [5, 8] in Row a Col H
+- There are multiple values missing [3, 9] in Row e Col E
+- There are multiple values missing [3, 9] in Row e Col H
 
 |     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
