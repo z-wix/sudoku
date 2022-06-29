@@ -149,11 +149,7 @@ Somehow this actually worked. So let me explain. First I decided to move all my 
 
 I changed up a litte bit the output of these functions, before if there were multiple missing values, it would show what they were in the ouput_df (i.e. [1, 9]). Now it prints out a statement showing that there were missing values and their coordinates while leaving that value as 0 so it can be used by the next function.
 
-It is not automated yet, but the gist of what I am doing is running the raw unfinished sudoku from `generate_sudoku()` through each of the solving functions.
-
-The nex thing I did was to combine the three functions I used before into one function that I could use with conditionals to loop thru the funcitons until it was solved. 
-
-I created the `solve_sudoku()` function that also utilizes the `count_zeros()` function. I needed to be able to have a condition for the data to loop thru the functions until it was solved. So I count the 0's present in the dataframe and used it for the `while count0 > 0:` it will loop thru the funcitons. 
+It is not automated yet, but the gist of what I am doing is running the raw unfinished sudoku from `generate_sudoku()` through each of the solving functions. 
 
 This new script also includes `count_zeros()` function in action, printing out how many missing values were left and renamed it to `sudoku_combined.py` (combined meaning the all three methods combined)
 
@@ -242,4 +238,159 @@ Now it is solved! However this is still a very simple sudoku and I think we got 
 
 ## Sixth Step:
 ### **The All in One Function**
+
+Now I have combined the functions into one function `solve_sudoku()` which takes in pretty much every function I have done before and make it solve the sudoku. You can see it in action in `sudoku.py` script.
+
+I wanted to be able to use `count_zeros()` for my condition during a while loop in order to accomplish this looping of functions until it was solved. So I count the 0's present in the dataframe and used it for the `while count0 > 0:` it will loop thru the funcitons. This output worked easily with the same data from before which was from `generate_sudoku(difficulty = 2)` but I wanted to do it will more missing data, so I used `difficulty = 3`. Here is the input for that difficulty:
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   |   1 |   2 |   3 |   4 |   0 |   6 |   7 |   0 |   9 |
+| b   |   0 |   5 |   0 |   7 |   8 |   9 |   0 |   2 |   3 |
+| c   |   7 |   8 |   9 |   1 |   2 |   0 |   4 |   5 |   0 |
+| d   |   0 |   3 |   4 |   5 |   6 |   7 |   8 |   9 |   1 |
+| e   |   5 |   6 |   0 |   8 |   0 |   1 |   2 |   0 |   4 |
+| f   |   8 |   0 |   1 |   2 |   3 |   4 |   0 |   6 |   7 |
+| g   |   3 |   4 |   5 |   6 |   7 |   8 |   0 |   1 |   0 |
+| h   |   6 |   7 |   0 |   0 |   1 |   2 |   3 |   4 |   5 |
+| i   |   9 |   0 |   2 |   0 |   4 |   5 |   0 |   7 |   8 |
+
+And here is the output from running `solve_sudoku()`, it is very large, so it is gonna be in this drop down:
+
+<details>
+<summary>Large Output</summary>
+<br>
+
+```
+There are 20 missing values left 
+Solving by Column
+There are multiple values missing [2, 4] in Row b Col A
+There are multiple values missing [2, 4] in Row d Col A
+There are multiple values missing [1, 9] in Row f Col B
+There are multiple values missing [1, 9] in Row i Col B
+There are multiple values missing [6, 7, 8] in Row b Col C
+There are multiple values missing [6, 7, 8] in Row e Col C
+There are multiple values missing [6, 7, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [3, 9] in Row i Col D
+There are multiple values missing [5, 9] in Row a Col E
+There are multiple values missing [5, 9] in Row e Col E
+There are multiple values missing [1, 5, 6, 9] in Row b Col G
+There are multiple values missing [1, 5, 6, 9] in Row f Col G
+There are multiple values missing [1, 5, 6, 9] in Row g Col G
+There are multiple values missing [1, 5, 6, 9] in Row i Col G
+There are multiple values missing [3, 8] in Row a Col H
+There are multiple values missing [3, 8] in Row e Col H
+There are multiple values missing [2, 6] in Row c Col I
+There are multiple values missing [2, 6] in Row g Col I
+There are 19 missing values left
+Solving by Row
+There are multiple values missing [5, 8] in Row a Col E
+There are multiple values missing [5, 8] in Row a Col H
+There are multiple values missing [1, 4, 6] in Row b Col A
+There are multiple values missing [1, 4, 6] in Row b Col C
+There are multiple values missing [1, 4, 6] in Row b Col G
+There are multiple values missing [3, 7, 9] in Row e Col C
+There are multiple values missing [3, 7, 9] in Row e Col E
+There are multiple values missing [3, 7, 9] in Row e Col H
+There are multiple values missing [5, 9] in Row f Col B
+There are multiple values missing [5, 9] in Row f Col G
+There are multiple values missing [2, 9] in Row g Col G
+There are multiple values missing [2, 9] in Row g Col I
+There are multiple values missing [8, 9] in Row h Col C
+There are multiple values missing [8, 9] in Row h Col D
+There are multiple values missing [1, 3, 6] in Row i Col B
+There are multiple values missing [1, 3, 6] in Row i Col D
+There are multiple values missing [1, 3, 6] in Row i Col G
+There are 17 missing values left
+Solving by Quadrant
+There are multiple values missing [1, 8] in Row a Col H
+There are multiple values missing [4, 6] in Row b Col A
+There are multiple values missing [4, 6] in Row b Col C
+There are multiple values missing [1, 8] in Row b Col G
+There are multiple values missing [7, 9] in Row e Col C
+There are multiple values missing [3, 5] in Row e Col H
+There are multiple values missing [7, 9] in Row f Col B
+There are multiple values missing [3, 5] in Row f Col G
+There are multiple values missing [2, 6, 9] in Row g Col G
+There are multiple values missing [2, 6, 9] in Row g Col I
+There are multiple values missing [1, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [1, 8] in Row i Col B
+There are multiple values missing [3, 9] in Row i Col D
+There are multiple values missing [2, 6, 9] in Row i Col G
+There are 15 missing values left
+Solving by Column
+There are multiple values missing [1, 9] in Row f Col B
+There are multiple values missing [1, 9] in Row i Col B
+There are multiple values missing [6, 7, 8] in Row b Col C
+There are multiple values missing [6, 7, 8] in Row e Col C
+There are multiple values missing [6, 7, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [3, 9] in Row i Col D
+There are multiple values missing [1, 5, 6, 9] in Row b Col G
+There are multiple values missing [1, 5, 6, 9] in Row f Col G
+There are multiple values missing [1, 5, 6, 9] in Row g Col G
+There are multiple values missing [1, 5, 6, 9] in Row i Col G
+There are multiple values missing [3, 8] in Row a Col H
+There are multiple values missing [3, 8] in Row e Col H
+There are 13 missing values left
+Solving by Row
+There are multiple values missing [1, 6] in Row b Col C
+There are multiple values missing [1, 6] in Row b Col G
+There are multiple values missing [3, 7] in Row e Col C
+There are multiple values missing [3, 7] in Row e Col H
+There are multiple values missing [5, 9] in Row f Col B
+There are multiple values missing [5, 9] in Row f Col G
+There are multiple values missing [8, 9] in Row h Col C
+There are multiple values missing [8, 9] in Row h Col D
+There are multiple values missing [1, 3, 6] in Row i Col B
+There are multiple values missing [1, 3, 6] in Row i Col D
+There are multiple values missing [1, 3, 6] in Row i Col G
+There are 11 missing values left
+Solving by Quadrant
+There are multiple values missing [7, 9] in Row e Col C
+There are multiple values missing [3, 5] in Row e Col H
+There are multiple values missing [7, 9] in Row f Col B
+There are multiple values missing [3, 5] in Row f Col G
+There are multiple values missing [1, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [1, 8] in Row i Col B
+There are multiple values missing [3, 9] in Row i Col D
+There are 8 missing values left
+Solving by Column
+There are multiple values missing [1, 9] in Row f Col B
+There are multiple values missing [1, 9] in Row i Col B
+There are multiple values missing [7, 8] in Row e Col C
+There are multiple values missing [7, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [3, 9] in Row i Col D
+There are 6 missing values left
+Solving by Row
+There are multiple values missing [8, 9] in Row h Col C
+There are multiple values missing [8, 9] in Row h Col D
+There are multiple values missing [1, 3] in Row i Col B
+There are multiple values missing [1, 3] in Row i Col D
+There are 4 missing values left
+Solving by Quadrant
+There are multiple values missing [1, 8] in Row h Col C
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [1, 8] in Row i Col B
+There are multiple values missing [3, 9] in Row i Col D
+There are 4 missing values left
+Solving by Column
+There are multiple values missing [3, 9] in Row h Col D
+There are multiple values missing [3, 9] in Row i Col D
+There are 2 missing values left
+Solving by Row
+There are 0 missing values left
+Solving by Quadrant
+There are 0 missing values left
+```
+
+</details>
+
+This is very large, but it shows how many times it looped thru the functions until it was solved starting at 20 missing values.
+
+I tried to run the script on difficulty level 4 it doesn't work. So there must be some sort of condition that it will get to a certain point of unsolvability with my current logic.
 

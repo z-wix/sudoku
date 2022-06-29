@@ -16,7 +16,8 @@ def generate_sudoku(difficulty = 1):
     Three difficulty levels:
      - 1 : single value missing per col/row/quad
      - 2 : double values missing per col/row/quad
-
+     - 3 : 20 missing values, multiple per col/row/quad
+     - 4 : mostly missing values, hardest level
      Work in Progress
     '''
     if difficulty == 1:
@@ -74,16 +75,16 @@ def generate_sudoku(difficulty = 1):
     elif difficulty == 3:
         knight_sudoku_matrix = [
             [1, 2, 3, 4, 0, 6, 7, 0, 9],
-            [4, 5, 0, 7, 8, 9, 1, 2, 3],
-            [7, 8, 9, 1, 2, 0, 4, 5, 6],
+            [0, 5, 0, 7, 8, 9, 0, 2, 3],
+            [7, 8, 9, 1, 2, 0, 4, 5, 0],
 
             [0, 3, 4, 5, 6, 7, 8, 9, 1],
-            [5, 6, 7, 8, 0, 1, 2, 0, 4],
+            [5, 6, 0, 8, 0, 1, 2, 0, 4],
             [8, 0, 1, 2, 3, 4, 0, 6, 7],
 
-            [3, 4, 5, 6, 7, 8, 9, 1, 0],
-            [6, 7, 8, 0, 1, 2, 3, 4, 5],
-            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            [3, 4, 5, 6, 7, 8, 0, 1, 0],
+            [6, 7, 0, 0, 1, 2, 3, 4, 5],
+            [9, 0, 2, 0, 4, 5, 0, 7, 8]
             ]
 
         # Test using a dataset
@@ -98,17 +99,17 @@ def generate_sudoku(difficulty = 1):
         return knight_sudoku_df
     else:
         master_sudoku_matrix = [
-            [1, 2, 3, 4, 0, 0, 7, 0, 9],
-            [4, 0, 0, 7, 0, 0, 0, 2, 3],
-            [7, 8, 0, 1, 2, 0, 4, 5, 6],
+            [0, 2, 0, 4, 0, 6, 7, 0, 9],
+            [0, 5, 0, 7, 8, 9, 0, 2, 3],
+            [7, 8, 9, 1, 0, 0, 4, 5, 0],
 
-            [0, 3, 0, 5, 6, 0, 8, 9, 1],
-            [5, 6, 7, 8, 0, 1, 2, 0, 4],
-            [8, 0, 1, 0, 3, 4, 0, 6, 7],
+            [0, 3, 4, 0, 0, 7, 8, 9, 1],
+            [5, 6, 0, 8, 0, 1, 0, 0, 4],
+            [8, 0, 1, 2, 3, 4, 0, 6, 7],
 
-            [3, 4, 5, 6, 7, 8, 0, 1, 0],
-            [0, 0, 8, 0, 1, 2, 3, 4, 5],
-            [9, 0, 2, 3, 4, 5, 6, 7, 8]
+            [3, 0, 5, 0, 7, 8, 0, 1, 0],
+            [6, 7, 0, 0, 1, 0, 3, 0, 0],
+            [9, 0, 2, 0, 0, 5, 0, 7, 8]
             ]
 
         # Test using a dataset
@@ -290,6 +291,7 @@ def count_zeros(df):
     for i in df.columns:
         n = (df[i] == 0).sum()
         count0 += n
+    print(f'There are {count0} missing values left')
     return count0
 
 
@@ -303,7 +305,9 @@ def solve_sudoku(df):
     count0 = count_zeros(df)
     while count0 > 0:
         df = solve_columnwise(df)
+        count_zeros(df)
         df = solve_rowwise(df)
+        count_zeros(df)
         df = solve_quadwise(df)
         count0 = count_zeros(df)
-    print(df)
+    return df
