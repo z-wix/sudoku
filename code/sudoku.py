@@ -5,6 +5,7 @@ WIP
 
 """
 
+
 import pandas as pd
 import plotly.express as px
 from sudoku_module import generate_sudoku, solve_columnwise, solve_rowwise, solve_quadwise, count_zeros, solve_sudoku
@@ -18,6 +19,3 @@ sudoku_knight
 
 # Save to CSV
 sudoku_knight.to_csv("../output/sudoku_hard_result.csv")
-
-
-
