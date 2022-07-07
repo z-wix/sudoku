@@ -305,9 +305,12 @@ def solve_sudoku(df):
     count0 = count_zeros(df)
     while count0 > 0:
         df = solve_columnwise(df)
-        count_zeros(df)
+        col0 = count_zeros(df)
         df = solve_rowwise(df)
-        count_zeros(df)
+        row0 = count_zeros(df)
         df = solve_quadwise(df)
         count0 = count_zeros(df)
+        if count0 == col0:
+            print("Unsolvable")
+            return df
     return df

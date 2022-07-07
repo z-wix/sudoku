@@ -394,3 +394,20 @@ This is very large, but it shows how many times it looped thru the functions unt
 
 I tried to run the script on difficulty level 4 it doesn't work. So there must be some sort of condition that it will get to a certain point of unsolvability with my current logic.
 
+**Next Steps:**
+
+- Start Adding in additional logic to solving the sudoku in new ways that will handle multiple missing values and also borrowing information from other rows and columns.
+- Look into creating a live animated chart that fills in the data
+
+## Seventh Step:
+### **Advanced Patterns**
+
+While walking around Barnes & Noble the other day I found a new sudoku book, but what caught my eye in this book was the explainations on advanced patterns used to solved sudokus. So I realized that I was just using the most basic patterns in my logic and this might be the missing piece to my program. 
+
+It was also interesting that these advanced patterns are what I naturally look for when solving sudoku, but didn't realize it and so didn't consider it before. I partial mentioned it above when I was discussing using information from other sources (columns, rows, quadrants, etc) around to imply the solution. So now with these more defined patterns I could hopefully build something to help solve more advanced sudokus.
+
+**Basic Patterns**
+
+**Intermediate Patterns**
+
+**Advanced Patterns**
