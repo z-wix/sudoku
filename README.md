@@ -400,14 +400,13 @@ I tried to run the script on difficulty level 4 it doesn't work. So there must b
 - Look into creating a live animated chart that fills in the data
 
 ## Seventh Step:
-### **Advanced Patterns**
+### **Relative Location**
 
-While walking around Barnes & Noble the other day I found a new sudoku book, but what caught my eye in this book was the explainations on advanced patterns used to solved sudokus. So I realized that I was just using the most basic patterns in my logic and this might be the missing piece to my program. 
+I realized as I was looking at my different methods to solve the sudoku that when I am doing a sudoku I am constantly checking the corresponding rows, columns and quadrants if that possible value already is filled in. I decided to call this the values *relative location*. This basically combines all the methods of solving the value into one step. 
 
-It was also interesting that these advanced patterns are what I naturally look for when solving sudoku, but didn't realize it and so didn't consider it before. I partial mentioned it above when I was discussing using information from other sources (columns, rows, quadrants, etc) around to imply the solution. So now with these more defined patterns I could hopefully build something to help solve more advanced sudokus.
+So I added another step to my `solve_sudoku()` function that if those simple methods fail, then it will try a relative location method. This borrows from the `solve_quadwise()` function but adds an additional set of steps that will see if those possible values (now assigned to a temporary dataframe `temp_df`, separate from the output dataframe that is passed onto the other solving methods) are already present in their relative row or column. If the value is not already in a row or column then it is added to the new `temp_df` respecitve value. This process is looped thru every set of possible solutions until only one remains, assigning that value to the `output_df`. Once this relative locaiton method has been tried on every unsolved position in the sudoku, it loops back thru the simple solving methods as new information has been added to make those easy deductions. 
 
-**Basic Patterns**
+**Next Steps**
 
-**Intermediate Patterns**
-
-**Advanced Patterns**
+- This whole process of nested for loops and if else statments could probably be simplified, but it seems to be working even as I add more complex sudoku's
+- I need to find a way to visualize this process so it could easily be conveyed what is happening thru out the script. A dynamic visual that populates and highlights the new numbers would be amazing but the script runs really fast so first I would need to add breaks where it takes a second before moving onto the next step in the function. 

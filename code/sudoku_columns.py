@@ -16,7 +16,7 @@ This is a WORK IN PROGRESS
 
 import pandas as pd
 import plotly.express as px
-from sudoku_module import generate_sudoku, solve_columnwise
+from sudoku_module import generate_sudoku, solve_columnwise, find_missing
 
 # Load in Sudoku difficulty = 1
 sudoku_df = generate_sudoku()
