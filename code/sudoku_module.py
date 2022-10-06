@@ -14,12 +14,12 @@ from termcolor import colored, cprint
 def generate_sudoku(difficulty = 1):
     '''
     Generates an unfinished Sudoku
-    Three difficulty levels:
+    Five difficulty levels:
      - 1 : single value missing per col/row/quad
      - 2 : double values missing per col/row/quad
      - 3 : 20 missing values, multiple per col/row/quad
      - 4 : mostly missing values, hardest level
-     Work in Progress
+     - 5 : an example from my book expert level
     '''
     if difficulty == 1:
         youngling_sudoku_matrix = [
@@ -98,7 +98,7 @@ def generate_sudoku(difficulty = 1):
         knight_sudoku_df.to_csv("../input/hard_sudoku.csv")
 
         return knight_sudoku_df
-    else:
+    elif difficulty == 4:
         master_sudoku_matrix = [
             [0, 2, 0, 4, 0, 6, 7, 0, 9],
             [0, 0, 0, 7, 0, 9, 0, 0, 3],
@@ -123,6 +123,31 @@ def generate_sudoku(difficulty = 1):
         master_sudoku_df.to_csv("../input/master_sudoku.csv")
 
         return master_sudoku_df
+    else:
+        impossible_sudoku_matrix = [
+            [2, 0, 0, 0, 0, 4, 0, 0, 0],
+            [0, 0, 0, 0, 0, 8, 0, 9, 0],
+            [9, 0, 6, 0, 2, 7, 1, 0, 0],
+
+            [0, 6, 4, 0, 0, 0, 0, 0, 1],
+            [0, 9, 0, 7, 0, 6, 0, 3, 0],
+            [3, 0, 0, 0, 0, 0, 5, 4, 0],
+
+            [0, 0, 1, 4, 5, 0, 8, 0, 9],
+            [0, 2, 0, 8, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 5]
+            ]
+
+        # Test using a dataset
+        impossible_sudoku_df = pd.DataFrame(
+            impossible_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        impossible_sudoku_df.to_csv("../input/impossible_sudoku.csv")
+
+        return impossible_sudoku_df
 
 def find_missing(lst):
     '''

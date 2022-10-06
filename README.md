@@ -406,6 +406,34 @@ I realized as I was looking at my different methods to solve the sudoku that whe
 
 So I added another step to my `solve_sudoku()` function that if those simple methods fail, then it will try a relative location method. This borrows from the `solve_quadwise()` function but adds an additional set of steps that will see if those possible values (now assigned to a temporary dataframe `temp_df`, separate from the output dataframe that is passed onto the other solving methods) are already present in their relative row or column. If the value is not already in a row or column then it is added to the new `temp_df` respecitve value. This process is looped thru every set of possible solutions until only one remains, assigning that value to the `output_df`. Once this relative locaiton method has been tried on every unsolved position in the sudoku, it loops back thru the simple solving methods as new information has been added to make those easy deductions. 
 
+**Sudoku Unsolved**
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   | 2   | 0   | 0   | 0   | 0   | 4   | 0   | 0   | 0   |
+| b   | 0   | 0   | 0   | 0   | 0   | 8   | 0   | 9   | 0   |
+| c   | 9   | 0   | 6   | 0   | 2   | 7   | 1   | 0   | 0   |
+| d   | 0   | 6   | 4   | 0   | 0   | 0   | 0   | 0   | 1   |
+| e   | 0   | 9   | 0   | 7   | 0   | 6   | 0   | 3   | 0   |
+| f   | 3   | 0   | 0   | 0   | 0   | 0   | 5   | 4   | 0   |
+| g   | 0   | 0   | 1   | 4   | 5   | 0   | 8   | 0   | 9   |
+| h   | 0   | 2   | 0   | 8   | 0   | 0   | 0   | 0   | 0   |
+| i   | 0   | 0   | 0   | 1   | 0   | 0   | 0   | 0   | 5   |
+
+**Sudoku Solved**
+
+|     | A   | B   | C   | D   | E   | F   | G   | H   | I   |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| a   | 2   | 1   | 7   | 5   | 9   | 4   | 6   | 8   | 3   |
+| b   | 4   | 5   | 3   | 6   | 1   | 8   | 7   | 9   | 2   |
+| c   | 9   | 8   | 6   | 3   | 2   | 7   | 1   | 5   | 4   |
+| d   | 8   | 6   | 4   | 2   | 3   | 5   | 9   | 7   | 1   |
+| e   | 1   | 9   | 5   | 7   | 4   | 6   | 2   | 3   | 8   |
+| f   | 3   | 7   | 2   | 9   | 8   | 1   | 5   | 4   | 6   |
+| g   | 7   | 3   | 1   | 4   | 5   | 2   | 8   | 6   | 9   |
+| h   | 5   | 2   | 9   | 8   | 6   | 3   | 4   | 1   | 7   |
+| i   | 6   | 4   | 8   | 1   | 7   | 9   | 3   | 2   | 5   |
+
 **Next Steps**
 
 - This whole process of nested for loops and if else statments could probably be simplified, but it seems to be working even as I add more complex sudoku's
