@@ -1,0 +1,66 @@
+<style>
+    table { border-collapse: collapse; font-family: Calibri, sans-serif; font-size: x-large; margin: 100;}
+    colgroup, tbody { border: solid medium; }
+    td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
+    </style>
+    <table width = 400 height = 400>
+      <caption>{{ caption1 }}</caption>
+      <colgroup><col><col><col>
+      <colgroup><col><col><col>
+      <colgroup><col><col><col>
+      <tbody>
+        {% for row in unsolved1 %}
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+      <tbody>
+        {% for row in unsolved2 %} 
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+      <tbody>
+        {% for row in unsolved3 %} 
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+    </table>
+
+
+<style>
+    table { border-collapse: collapse; font-family: Calibri, sans-serif; font-size: x-large; margin: 100;}
+    colgroup, tbody { border: solid medium; }
+    td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
+    </style>
+    <table width = 400 height = 400>
+        <caption>{{ caption2 }}</caption>
+        <colgroup><col><col><col>
+        <colgroup><col><col><col>
+        <colgroup><col><col><col>
+        <tbody>
+        {% for row in solved1 %}
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+        <tbody>
+        {% for row in solved2 %} 
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+        <tbody>
+        {% for row in solved3 %} 
+        <tr>
+            {% for cell in row %} 
+            <td>{{ cell }}
+            {% endfor %}
+        {% endfor %}
+    </table>

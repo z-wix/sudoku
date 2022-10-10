@@ -5,6 +5,7 @@ custom functions and different levels of input
 sudokus ranging in difficulty.
 '''
 
+from re import X
 import pandas as pd
 import plotly.express as px
 from termcolor import colored, cprint
@@ -443,7 +444,23 @@ def solve_sudoku(df):
         df = solve_quadwise(df)
         count0 = count_zeros(df)
         if count0 == col0:
-            print(colored("Switching to Relative Location method", 'green'))
             df = solve_relative_loc(df)
             count0 = count_zeros(df)
+    return df
+
+
+
+def split_df(df):
+    dict_of_df = {}
+
+    for i in df.index[::3]:
+        start = i
+        end = add_char(i, 2)
+        dict_of_df["{}".format(i)] = df.loc[start:end,].values
+    return dict_of_df
+
+
+def zero_to_blanks(df):
+    for col in df.columns:
+        df[col].replace(0, "", inplace = True)
     return df

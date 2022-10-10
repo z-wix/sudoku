@@ -438,3 +438,14 @@ So I added another step to my `solve_sudoku()` function that if those simple met
 
 - This whole process of nested for loops and if else statments could probably be simplified, but it seems to be working even as I add more complex sudoku's
 - I need to find a way to visualize this process so it could easily be conveyed what is happening thru out the script. A dynamic visual that populates and highlights the new numbers would be amazing but the script runs really fast so first I would need to add breaks where it takes a second before moving onto the next step in the function. 
+
+## Eighth Step:
+### **Visualizing**
+
+So start looking up ways to visualize this and I came across `flask` apps. This let's me make an html image that I can update with my code. This is not yet able to make live updates as the code is running, but I managed to make the html tables dynamic so I could feed in whatever data I want and it populates an html sudoku grid. I was able to learn a lot about html, but it still isn't the perfect visualization that I was imagining.
+
+However I was able to change the table to show empty spaces instead of 0's for the missing values. This looks a lot more like a sudoku grid than the tables I was using before.
+
+![Unsolved image of Sudoku](images/unsolved_sudoku.png)
+
+![Solved image of Sudoku](images/solved_sudoku.png)
