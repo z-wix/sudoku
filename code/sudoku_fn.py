@@ -112,7 +112,7 @@ def generate_sudoku(difficulty = 1):
         master_sudoku_df.to_csv("../input/master_sudoku.csv")
 
         return master_sudoku_df
-    else:
+    elif difficulty == 5:
         impossible_sudoku_matrix = [
             [2, 0, 0, 0, 0, 4, 0, 0, 0],
             [0, 0, 0, 0, 0, 8, 0, 9, 0],
@@ -137,6 +137,31 @@ def generate_sudoku(difficulty = 1):
         impossible_sudoku_df.to_csv("../input/impossible_sudoku.csv")
 
         return impossible_sudoku_df
+    else:
+        super_sudoku_matrix = [
+            [1, 0, 0, 0, 0, 8, 0, 6, 0],
+            [0, 4, 0, 0, 0, 7, 1, 0, 3],
+            [8, 0, 2, 0, 0, 0, 9, 0, 0],
+
+            [0, 0, 0, 0, 0, 1, 0, 0, 0],
+            [3, 0, 0, 0, 9, 0, 0, 0, 7],
+            [0, 0, 0, 6, 0, 0, 0, 0, 0],
+
+            [0, 0, 7, 0, 0, 0, 8, 0, 4],
+            [9, 0, 5, 7, 0, 0, 0, 2, 0],
+            [0, 8, 0, 1, 0, 0, 0, 0, 6]
+            ]
+
+        # Test using a dataset
+        super_sudoku_df = pd.DataFrame(
+            super_sudoku_matrix,
+            columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+            index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+        )
+
+        super_sudoku_df.to_csv("../input/super_sudoku.csv")
+
+        return super_sudoku_df
 
 def add_char(char, incr = 1):
     '''
